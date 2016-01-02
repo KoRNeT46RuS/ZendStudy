@@ -20,9 +20,9 @@ class Module
     {
         return array(
             'factories' => array(
-                'Page\Model\PageTable' => function($serviceManager){
-                    $dbAdapter =$serviceManager->get('Zend\Db\Adapter\Adapter');
-                    $table = new PageTable($dbAdapter);
+                'Page\Model\PageTable' =>  function($sm) {
+                    $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
+                    $table     = new PageTable($dbAdapter);
                     return $table;
                 },
             ),

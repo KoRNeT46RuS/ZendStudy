@@ -9,7 +9,7 @@ use Zend\Db\TableGateway\AbstractTableGateway;
 
 class PageTable extends AbstractTableGateway
 {
-    private $table = 'page';//таблица
+    protected $table = 'page';//таблица
 
     public function __construct(Adapter $adapter)
     {
@@ -51,14 +51,14 @@ class PageTable extends AbstractTableGateway
         $this->delete(array('idpage' => $id,));
     }
 
-    //получаем массив из базы и заполняем его
-    public function exchangeArray($data)
-    {
-        $this->idpage = (isset($data['idpage'])) ? $data['idpage'] : null;
-        $this->idpage = (isset($data['title'])) ? $data['title'] : null;
-        $this->idpage = (isset($data['article'])) ? $data['article'] : null;
-        $this->idpage = (isset($data['pub'])) ? $data['pub'] : null;
-
-    }
+//    //получаем массив из базы и заполняем его
+//    public function exchangeArray($data)
+//    {
+//        $this->idpage = (isset($data['idpage'])) ? $data['idpage'] : null;
+//        $this->idpage = (isset($data['title'])) ? $data['title'] : null;
+//        $this->idpage = (isset($data['article'])) ? $data['article'] : null;
+//        $this->idpage = (isset($data['pub'])) ? $data['pub'] : null;
+//
+//    }
 }
 
