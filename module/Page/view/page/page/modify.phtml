@@ -1,2 +1,22 @@
-Hellow Zend
-Edit
+<?php
+$title = 'Редактирование';
+$this->headTitle($title);
+?>
+    <h1>Добавление новой страницы</h1>
+<?php
+$form = $this->form;
+$form->setAttribute('action', $this->url('page', ['action' => 'modify', 'id' => $this->id]));
+$form->get('submit')->setAttribute('value', 'Edit');
+$form->prepare();//Подготовка к выводу
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('idpage'));
+echo $this->formRow($form->get('title'));
+echo $this->formRow($form->get('article'));
+echo $this->formRow($form->get('pub'));
+echo $this->formRow($form->get('submit'));
+echo $this->form()->closeTag();
+//    echo '<pre>';
+//        print_r($form);
+//    echo '</pre>';
+?>
