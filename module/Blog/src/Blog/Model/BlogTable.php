@@ -46,4 +46,10 @@ class BlogTable extends AbstractTableGateway
         }
         return true;
     }
+
+    public function deleteArticle($id)
+    {
+        $this->delete(['idblog'=>$id]);
+        return true;
+    }
 }

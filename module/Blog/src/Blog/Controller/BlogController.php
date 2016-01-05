@@ -70,6 +70,26 @@ class BlogController extends AbstractActionController
         return new ViewModel(['form'=>$form, 'id'=>$id]);
     }
 
+    public function deleteAction()
+    {
+        $id = (int) $this->params()->fromRoute('id');
+        if (!$id){
+            return $this->redirect()->toRoute('blog');
+        }
+        $request = $this->getRequest();
+        if ($request->isPost()){
+            $del = $request->getPost('del','No');
+            if($del == 'Yes'){
+                $this->getBlogTable()->deleteArticle($id);
+            }
+            return $this->redirect()->toRoute('blog');
+        }
+        return new ViewModel([
+            'id' => $id,
+            'blog' => $this->getBlogTable()->getArticle($id),
+        ]);
+    }
+
     public function getBlogTable(){
         if(!$this->blogTable){
             $serviceManager = $this->getServiceLocator();
