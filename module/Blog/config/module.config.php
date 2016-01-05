@@ -3,16 +3,16 @@
 return array(
     'router' => array(
         'routes' => array(
-            'page' => array(//имя папки во вьюшках
+            'blog' => array(//имя папки во вьюшках
                 'type' => 'Segment',
                 'options' => array(
-                    'route'    => '/page[/:action][/:id]',//Главная страница модуля и какие страницы возможны
+                    'route'    => '/blog[/:action][/:id]',//Главная страница модуля и какие страницы возможны
                     'constraints' => array(//ограничения
                         'action' => '[a-zA-Z][a-zA-Z0-9_-]*',
                         'id'     => '[0-9]+',
                     ),
                     'defaults' => array(
-                        'controller' => 'Page\Controller\Page',//контроллер
+                        'controller' => 'Blog\Controller\Blog',//контроллер
                         'action'     => 'index',//метод класса контроллера (пример indexAction{})
                     ),
                 ),
@@ -46,13 +46,13 @@ return array(
 //                            ),
 //                        ),
 //                    ),
-//                ),
+//                ),z
 //            ),
         ),
     ),
     'controllers' => array(
         'invokables' => array(
-            'Page\Controller\Page' => 'Page\Controller\PageController'
+            'Blog\Controller\Blog' => 'Blog\Controller\BlogController'
         ),
     ),
     'view_manager' => array(

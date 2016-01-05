@@ -1,0 +1,8 @@
+<h1 style="margin-bottom: 15px;">Типа блог</h1>
+<div style="margin-bottom: 50px;"><a href="<?=$this->url('blog', ['action' => 'add'])?>">Добавить новый пост</a></div>
+<?php foreach($blogs as $blog): ?>
+    <div style="padding: 15px; border: 2px solid #285e8e; margin-bottom: 20px; border-radius: 5px;">
+        <a href="<?=$this->url('blog', ['action' => 'article', 'id' => $blog->idblog])?>"><h4><?=$blog->title?></h4></a>
+    <p><?=$blog->article?></p>
+    </div>
+<?php endforeach; ?>
