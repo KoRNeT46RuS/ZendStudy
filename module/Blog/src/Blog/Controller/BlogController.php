@@ -49,6 +49,27 @@ class BlogController extends AbstractActionController
         return new ViewModel(['form' => $form]);
     }
 
+    public function editAction()
+    {
+        $id = (int) $this->params()->fromRoute('id');
+        if (!$id){
+            return $this->redirect()->toRoute('blog', ['action' => 'add']);
+        }
+        $blog = $this->getBlogTable()->getArticle($id);
+        $form = new BlogForm();
+        $form->bind($blog);
+        $request = $this->getRequest();
+        if ($request->isPost()){
+            $form->setInputFilter($blog->getInputFilter());
+            $form->setData($request->getPost());
+            if ($form->isValid()){
+                $this->getBlogTable()->saveArticle($blog);
+                return $this->redirect()->toRoute('blog');
+            }
+        }
+        return new ViewModel(['form'=>$form, 'id'=>$id]);
+    }
+
     public function getBlogTable(){
         if(!$this->blogTable){
             $serviceManager = $this->getServiceLocator();
