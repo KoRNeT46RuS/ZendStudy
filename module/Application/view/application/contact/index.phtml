@@ -1,0 +1,21 @@
+<?php
+$title = 'Контакт';
+$this->headTitle($title);
+?>
+<h1><?=$title?></h1>
+<?php
+
+$form->setAttribute('action', $this->url('page', ['action' => 'add']));
+$form->prepare();//Подготовка к выводу
+
+echo $this->form()->openTag($form);
+echo $this->formHidden($form->get('idcontact'));
+echo $this->formRow($form->get('nameuser'));
+echo $this->formRow($form->get('email'));
+echo $this->formRow($form->get('text'));
+echo $this->formRow($form->get('submit'));
+echo $this->form()->closeTag();
+//    echo '<pre>';
+//        print_r($form);
+//    echo '</pre>';
+?>

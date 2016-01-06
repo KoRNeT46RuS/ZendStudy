@@ -2,7 +2,6 @@
 
 namespace Blog\Controller;
 
-use Blog\Form\BlogForm;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Blog\Model;
@@ -27,66 +26,6 @@ class BlogController extends AbstractActionController
         $article = $this->getBlogTable()->getArticle($id);
         return new ViewModel([
             'article' => $article
-        ]);
-    }
-
-    public function addAction()
-    {
-        $form = new BlogForm();
-        $request = $this->getRequest();
-        if($request->isPost()){
-            $blog = new Model\Blog();
-            $form->setInputFilter($blog->getInputFilter());
-            $form->setData($request->getPost());
-            if($form->isValid()){
-                $blog->exchangeArray($form->getData());
-                $this->getBlogTable()->saveArticle($blog);
-                return $this->redirect()->toRoute('blog');
-            }else{
-                throw new \Exception('Твоя гавноформа не проходит валидацию. Иди еби мозги');
-            }
-        }
-        return new ViewModel(['form' => $form]);
-    }
-
-    public function editAction()
-    {
-        $id = (int) $this->params()->fromRoute('id');
-        if (!$id){
-            return $this->redirect()->toRoute('blog', ['action' => 'add']);
-        }
-        $blog = $this->getBlogTable()->getArticle($id);
-        $form = new BlogForm();
-        $form->bind($blog);
-        $request = $this->getRequest();
-        if ($request->isPost()){
-            $form->setInputFilter($blog->getInputFilter());
-            $form->setData($request->getPost());
-            if ($form->isValid()){
-                $this->getBlogTable()->saveArticle($blog);
-                return $this->redirect()->toRoute('blog');
-            }
-        }
-        return new ViewModel(['form'=>$form, 'id'=>$id]);
-    }
-
-    public function deleteAction()
-    {
-        $id = (int) $this->params()->fromRoute('id');
-        if (!$id){
-            return $this->redirect()->toRoute('blog');
-        }
-        $request = $this->getRequest();
-        if ($request->isPost()){
-            $del = $request->getPost('del','No');
-            if($del == 'Yes'){
-                $this->getBlogTable()->deleteArticle($id);
-            }
-            return $this->redirect()->toRoute('blog');
-        }
-        return new ViewModel([
-            'id' => $id,
-            'blog' => $this->getBlogTable()->getArticle($id),
         ]);
     }
 

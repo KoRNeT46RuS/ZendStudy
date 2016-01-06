@@ -1,5 +1,5 @@
 <?php
-namespace Blog\Form;
+namespace Admin\Form;
 
 use Zend\Form\Form;
 use Zend\Form\Element;

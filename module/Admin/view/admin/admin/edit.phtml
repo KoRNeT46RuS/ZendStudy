@@ -4,7 +4,7 @@
 ?>
 <h1><?=$title?></h1>
 <?php
-$form->setAttribute('action', $this->url('blog', ['action' => 'edit', 'id' => $this->id]));
+$form->setAttribute('action', $this->url('admin', ['action' => 'edit', 'id' => $this->id]));
 $form->get('submit')->setAttribute('value', 'Edit');
 $form->prepare();
 

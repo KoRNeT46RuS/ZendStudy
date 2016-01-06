@@ -13,6 +13,7 @@ use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use Page\Model;
 use Page\Form\PageForm;
+use Application\Model\MyAdapter;
 
 class PageController extends AbstractActionController
 {
@@ -21,9 +22,17 @@ class PageController extends AbstractActionController
     //page
     public function indexAction()
     {
-        return new ViewModel(array(
-            'pages' => $this->getPageTable()->fetchAll(),
-        ));
+        $adapter = new MyAdapter("admin2", "qwerty");
+        $result = $adapter->authenticate();
+        $code = $result->getCode();
+        $identity = $result->getIdentity();
+        if($result->isValid()) {
+            return new ViewModel(array(
+                'pages' => $this->getPageTable()->fetchAll(),
+            ));
+        }else{
+            return new ViewModel(['messadge'=>'Типа форма']);
+        }
     }
 
     //page/delete
