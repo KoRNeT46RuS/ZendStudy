@@ -2,6 +2,7 @@
 
 namespace Admin;
 
+use Admin\Model\AdminTable;
 use Zend\Mvc\ModuleRouteListener;
 use Zend\Mvc\MvcEvent;
 use Admin\Model\BlogTable;
@@ -23,6 +24,11 @@ class Module
                     $dbAdapter = $sm->get('Zend\Db\Adapter\Adapter');
                     $table     = new BlogTable($dbAdapter);
                     return $table;
+                },
+                'Admin\Model\AdminTable' =>  function($sm1) {
+                    $dbAdapter1 = $sm1->get('Zend\Db\Adapter\Adapter');
+                    $table1     = new AdminTable($dbAdapter1);
+                    return $table1;
                 },
             ),
         );

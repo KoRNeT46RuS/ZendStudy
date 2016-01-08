@@ -1,0 +1,19 @@
+<?php
+    $title = 'Добавление нового администратора';
+    $this->headTitle();
+?>
+<h1><?=$title?></h1>
+<?php
+    $form->setAttribute('action', $this->url('admin', ['action' => 'addadmin']));
+    $form->prepare();
+
+    echo $this->form()->openTag($form);
+    echo $this->formHidden($form->get('idadmin'));
+    echo $this->formRow($form->get('login'));
+    echo $this->formRow($form->get('password'));
+    echo $this->formRow($form->get('submit'));
+    echo $this->form()->closeTag();
+?>
+
+<?php var_dump($_SESSION);
+print_r($_SESSION);?>

@@ -1,4 +1,5 @@
 <?php
+//Я так понимаю формирует приходящие данные из Поста и фильтрует их а там хз
  namespace Admin\Model;
 
  use Zend\InputFilter\Factory as InputFactory;

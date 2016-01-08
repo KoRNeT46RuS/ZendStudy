@@ -1,21 +1,80 @@
+<?php
+    if(isset($_SESSION['error'])){
+        echo '<div class="alert alert-info" role="alert">'
+                    .$_SESSION['error'].
+              ' </div>';
+        unset($_SESSION['error']);
+    }
+?>
+<?php if(isset($blogs)): ?>
 <h1 style="margin-bottom: 15px;">Типа админка</h1>
-<div style="margin-bottom: 50px;"><a href="<?=$this->url('admin', ['action' => 'add'])?>">Добавить новый пост</a></div>
+<h4>Статьи</h4>
+<div style="margin-bottom: 50px;"><a href="<?= $this->url('admin', ['action' => 'add']) ?>">Добавить новый пост</a>
+</div>
 <table class="table">
     <thead>
-        <th>#</th>
-        <th>Название</th>
-        <th>Краткое содержание</th>
-        <th>Действие</th>
+    <th>#</th>
+    <th>Название</th>
+    <th>Краткое содержание</th>
+    <th>Действие</th>
     </thead>
     <tbody>
-        <?php foreach($blogs as $blog): ?>
-            <tr>
-                <td><?=$blog->idblog?></td>
-                <td><a href="<?=$this->url('blog', ['action' => 'article', 'id' => $blog->idblog])?>"><?=$blog->title?></a></td>
-                <td><?=$blog->article?></td>
-                <td><a href="<?=$this->url('admin', ['action' => 'edit', 'id' => $blog->idblog])?>">Реадктировать</a> /
-                    <a href="<?=$this->url('admin', ['action' => 'delete', 'id' => $blog->idblog])?>">Удалить</a></td>
-            </tr>
-        <?php endforeach; ?>
+    <?php foreach ($blogs as $blog): ?>
+        <tr>
+            <td><?= $blog->idblog ?></td>
+            <td>
+                <a href="<?= $this->url('blog', ['action' => 'article', 'id' => $blog->idblog]) ?>"><?= $blog->title ?></a>
+            </td>
+            <td><?= $blog->article ?></td>
+            <td><a href="<?= $this->url('admin', ['action' => 'edit', 'id' => $blog->idblog]) ?>">Реадктировать</a> /
+                <a href="<?= $this->url('admin', ['action' => 'delete', 'id' => $blog->idblog]) ?>">Удалить</a></td>
+        </tr>
+    <?php endforeach; ?>
     </tbody>
 </table>
+
+<h4 style="margin-top: 50px;">Aдминистраторы</h4>
+<div style="margin-bottom: 50px;"><a href="<?= $this->url('admin', ['action' => 'addadmin']) ?>">Добавить нового админа</a>
+<table class="table">
+    <thead>
+    <th>#</th>
+    <th>Логин</th>
+    <th>Пароль</th>
+    <th>Действие</th>
+    </thead>
+    <tbody>
+    <?php foreach ($admins as $admin): ?>
+        <tr>
+            <td><?= $admin->idadmin ?></td>
+            <td><?= $admin->login ?></td>
+            <td><?= $admin->password ?></td>
+            <td>
+                <a href="<?= $this->url('admin', ['action' => 'editadmin', 'id' => $admin->idadmin]) ?>">Редактировать</a>
+                /
+                <a href="<?= $this->url('admin', ['action' => 'deleteadmin', 'id' => $admin->idadmin]) ?>">Удалить</a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
+<?php elseif(isset($form)): ?>
+    <?php
+    $title = 'Авторизация';
+    $this->headTitle();
+    ?>
+
+    <h1><?=$title?></h1>
+    <?php
+    $form->setAttribute('action', $this->url('admin'));
+    $form->prepare();
+
+    echo $this->form()->openTag($form);
+    echo $this->formRow($form->get('login'));
+    echo $this->formRow($form->get('password'));
+    echo $this->formRow($form->get('submit'));
+    echo $this->form()->closeTag();
+    ?>
+<?php endif; ?>
+
+    <?php var_dump($_SESSION);
+    print_r($_SESSION);?>
